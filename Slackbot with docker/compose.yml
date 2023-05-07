@@ -1,0 +1,44 @@
+#YAML von marija
+
+services: 
+    reddit_collector:
+        build: reddit_collector/
+        volumes: 
+        - ./reddit_collector/:/app
+        depends_on:
+        - mongodb
+        env_file:
+        - .env
+    mongodb:
+        image: mongo:latest
+        restart: always
+        ports:
+        - 27017:27017
+    etl_job:
+        build: etl_job/
+        volumes: 
+        - ./etl_job/:/app
+        depends_on:
+        - mongodb
+        - postgresdb
+        env_file:
+        - .env
+    postgresdb:
+        image: postgres
+        ports:
+        - 5555:5432
+        environment:
+        - POSTGRES_USER=docker_user
+        - POSTGRES_PASSWORD=12345
+        - POSTGRES_DB=reddit
+    slackbot:
+        build: slackbot/
+        volumes:
+        - ./slackbot/:/app
+        depends_on:
+        - postgresdb
+        env_file:
+        - .env
+
+#in etl.py:configs:
+#pg = create_engine('postgresql://docker_user:12345@postgresdb:5432/reddit', echo= True)
