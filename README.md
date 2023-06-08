@@ -2,12 +2,7 @@
 
 This project is focused on building a data pipeline that collects reddits using Docker, and stores them in a database. It also analyzes the sentiment of reddits, and stores the annotated text in a second database. Finally, it uses the Reddit API to collect notes and store them in MongoDB. It then creates an ETL job to transport data from MongoDB to PostgreSQL. The project also includes sentiment analysis on the text, a Slack bot that publishes selected reddits, and NLP using psychopg2, vadersentimentanalyzer, pymongo, and sqlalchemy.
 
-## Installation
-
-To install this project, follow these steps:
-1. Clone the repository to your local machine.
-2. Install Docker and PostgreSQL.
-  
+ 
 ## Installation
 
 To install this project, follow these steps:
